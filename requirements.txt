@@ -1,0 +1,18 @@
+# Azure ML deployment
+azure-ai-ml
+azure-identity
+azureml-core
+azureml-inference-server-http
+
+# Data processing and modeling
+pandas==2.2.2
+numpy==1.23.5
+scikit-learn==1.5.1
+lightgbm==4.5.0
+joblib==1.4.2
+
+# Inference schema
+inference-schema[numpy-support]
+
+# Notebook visualization
+matplotlib

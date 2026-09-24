@@ -1,0 +1,25 @@
+# =================배포 환경====================
+# MS data school 4기 1차 프로젝트
+# 1팀(팀명: eve) 모델 배포 환경 코드
+
+### 작업환경 : Azure ML Studio > Notebooks
+### subscription_id  : "<YOUR_SUBSCRIPTION_ID>"
+### resource_group   : "<YOUR_RESOURCE_GROUP>"
+### workspace_name   : "<YOUR_WORKSPACE_NAME>"
+### endpoint_name    : "<YOUR_ENDPOINT_NAME>"
+### deployment       : "<YOUR_DEPLOYMENT_NAME>"
+### =====================================
+name: ev-lgbm-inference-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - azureml-inference-server-http
+      - pandas==2.2.2
+      - numpy==1.23.5
+      - scikit-learn==1.5.1
+      - lightgbm==4.5.0
+      - joblib==1.4.2
+      - inference-schema[numpy-support]  # 반드시 있어야 함
