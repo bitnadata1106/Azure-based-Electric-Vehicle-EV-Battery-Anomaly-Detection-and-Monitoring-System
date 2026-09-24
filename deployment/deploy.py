@@ -1,8 +1,11 @@
-"""Deploy the trained LightGBM model to an Azure ML managed endpoint.
-학습된 LightGBM 모델을 Azure ML 관리형 엔드포인트에 배포합니다.
+"""
+Deploy the trained LightGBM model to an Azure ML managed endpoint.
 
 This module orchestrates model registration and online deployment. Inference
 logic and environment dependencies remain in ``score.py`` and ``conda.yaml``.
+
+학습된 LightGBM 모델을 Azure ML 관리형 엔드포인트에 배포합니다.
+
 이 모듈은 모델 등록과 온라인 배포 과정을 조정합니다. 추론 로직과 환경
 의존성은 각각 ``score.py``와 ``conda.yaml``에서 관리합니다.
 """

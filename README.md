@@ -44,18 +44,21 @@
 <br>
 
 ## 4. Azure ML Real-time Serving ⭐
-> > Primary Owner 
+> Primary Owner 
 
 학습된 LightGBM 이상 탐지 모델을 Azure ML Online Endpoint로 배포하고, Azure Stream Analytics와 연결하여 실시간 추론이 가능한 Serving Flow를 구현했습니다.
+
+### 주요 작업
 - Azure ML Managed Online Endpoint 기반 LightGBM 모델 배포
 - 실시간 추론을 위한 `score.py` 및 Input/Output Schema 구성
 - Azure Stream Analytics UDF ↔ Azure ML Endpoint 연동
 - ASA–Azure ML Schema 불일치 분석 및 실시간 추론 정상화
 
+<br>
 
 ### 4-1.  Deployment Flow
 
-![My Primary Contribution](<./assets/Real-time ML Serving Flow — My Primary Contribution.png>)
+![My Primary Contribution](<./assets/Real-time ML Serving Flow — My Primary Contribution_Korean.png>)
 
 
 ① ASA에서 Telemetry Feature 추출  
@@ -64,6 +67,8 @@
 ④ 학습 Feature 기준으로 입력 정렬  
 ⑤ LightGBM inference  
 ⑥ Prediction JSON 반환
+
+<br>
 
 ### 4-2. Inference Implementation
 ASA에서 전달된 JSON Array를 모델 입력 형태로 변환하고, 학습 시 사용한 Feature Schema에 맞춰 추론한 뒤 Prediction JSON을 반환하도록 score.py를 구성했습니다.
@@ -156,12 +161,16 @@ Endpoint 호출에 실패했습니다.
 - score.py 입력 데이터 구조 추적
 
 #### ③ Solution
-`score.py`의 입력 파싱 로직을 수정하여 ASA에서 전달되는 JSON Array뿐 아니라 Azure ML Schema의 wrapper 구조도 처리할 수 있도록 입력 계약을 정리했습니다. 파싱된 데이터를 DataFrame으로 변환한 뒤 학습 Feature Schema에 맞게 컬럼을 정렬하고, 추론 결과는 ASA가 후속 처리할 수 있는 record array 형태로 반환하도록 구성했습니다.
+- `score.py`의 입력 파싱 로직을 수정하여 ASA에서 전달되는 JSON Array뿐 아니라 Azure ML Schema의 wrapper 구조도 처리할 수 있도록 입력 계약을 정리했습니다. 
+
+- 파싱된 데이터를 DataFrame으로 변환한 뒤 학습 Feature Schema에 맞게 컬럼을 정렬하고, 추론 결과는 ASA가 후속 처리할 수 있는 record array 형태로 반환하도록 구성했습니다.
 
 ### 4-4. Result
-ASA ↔ Azure ML 간 Schema 불일치를 해결하고 실시간 추론 호출을 정상화했습니다.
+- ASA ↔ Azure ML 간 Schema 불일치를 해결하고 실시간 추론 호출을 정상화했습니다.
 
-입력 Parsing → Feature Alignment → LightGBM Inference → Prediction Response 흐름을 연결하여, IoT Hub → ASA → Azure ML Online Endpoint → ASA → Azure SQL로 이어지는 실시간 ML Serving Pipeline을 구현했습니다.
+- 입력 Parsing → Feature Alignment → LightGBM Inference → Prediction Response 흐름을 연결하여,
+
+- IoT Hub → ASA → Azure ML Online Endpoint → ASA → Azure SQL로 이어지는 실시간 ML Serving Pipeline을 최종 구현했습니다.
 
 
 
@@ -196,8 +205,8 @@ Classes   : Normal / Warning / Danger
 ### Evaluation Metrics
 
 ```text
-Macro F1-score : 0.743
-Danger Recall  : 0.853
+Macro F1-score : 0.7895
+Danger Recall  : 0.8041
 ```
 
 위험 상태를 정상 또는 주의 상태로 잘못 판단하는 경우 실제 운영 환경에서 안전 문제로 이어질 수 있기 때문에, 본 프로젝트에서는 **Danger Recall을 핵심 평가 지표로 설정했습니다.**
